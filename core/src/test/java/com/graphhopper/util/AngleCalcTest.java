@@ -149,4 +149,17 @@ public class AngleCalcTest {
             this.y = y;
         }
     }
+
+    // #### IFT3913 ####
+    @Test
+    public void testAzimuth2compassPoint() {
+      assertEquals("N", AC.azimuth2compassPoint(22.0));
+      assertEquals("NE", AC.azimuth2compassPoint(67.0));
+      assertEquals("E", AC.azimuth2compassPoint(112.0));
+      assertEquals("SE", AC.azimuth2compassPoint(157.0));
+      assertEquals("S", AC.azimuth2compassPoint(202.0));
+      assertEquals("SW", AC.azimuth2compassPoint(247.0));
+      assertEquals("W", AC.azimuth2compassPoint(292.0));
+      assertEquals("NW", AC.azimuth2compassPoint(337.0));
+    }
 }
