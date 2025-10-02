@@ -161,5 +161,15 @@ public class AngleCalcTest {
       assertEquals("SW", AC.azimuth2compassPoint(247.0));
       assertEquals("W", AC.azimuth2compassPoint(292.0));
       assertEquals("NW", AC.azimuth2compassPoint(337.0));
+      assertEquals("N", AC.azimuth2compassPoint(382.0));
+    }
+
+    @Test
+    public void testConvertAzimuth2xaxisAngle() {
+      assertEquals(0.8377580409572781, AC.convertAzimuth2xaxisAngle(42.0), 0.0001);
+      assertEquals(1.5438592509381714, AC.convertAzimuth2xaxisAngle(1.5433807590140929), 0.0001);
+      assertEquals(-3.12413936106985, AC.convertAzimuth2xaxisAngle(360-91), 0.0001);
+      assertThrows(IllegalArgumentException.class, () ->  {AC.convertAzimuth2xaxisAngle(361);});
+      assertThrows(IllegalArgumentException.class, () -> {AC.convertAzimuth2xaxisAngle(-1);});
     }
 }
