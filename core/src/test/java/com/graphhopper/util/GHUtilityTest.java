@@ -17,12 +17,14 @@
  */
 package com.graphhopper.util;
 
-import com.graphhopper.coll.GHIntLongHashMap;
-import com.graphhopper.storage.BaseGraph;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.graphhopper.coll.GHIntLongHashMap;
+import com.graphhopper.storage.BaseGraph;
 
 /**
  * @author Peter Karich
@@ -84,4 +86,34 @@ public class GHUtilityTest {
         assertEquals(42, GHUtility.getEdge(graph, 42, 41).getBaseNode());
         assertEquals(0.67, GHUtility.getEdge(graph, 0, 3).getDistance());
     }
+
+        @Test
+    public void testPathsEqualExceptOneEdge_samePathsThrows() throws Exception {
+        var graph = new BaseGraph.Builder(10).create();
+
+        var path1 = new com.carrotsearch.hppc.IntArrayList();
+        path1.add(1); path1.add(2); path1.add(3);
+
+        var path2 = new com.carrotsearch.hppc.IntArrayList();
+        path2.add(1); path2.add(2); path2.add(3);
+
+        // Va accéder à la méthode privée pathsEqualExceptOneEdge
+        var method = GHUtility.class.getDeclaredMethod(
+                "pathsEqualExceptOneEdge",
+                com.graphhopper.storage.Graph.class,
+                com.carrotsearch.hppc.IntIndexedContainer.class,
+                com.carrotsearch.hppc.IntIndexedContainer.class
+        );
+        method.setAccessible(true);
+
+        // Ca va vérifier qu'une IllegalArgumentException est bien lancée si les chemins sont identiques
+        assertThrows(IllegalArgumentException.class, () -> {
+            try {
+                method.invoke(null, graph, path1, path2);
+            } catch (Exception e) {
+                throw e.getCause();
+            }
+        });
+    }
+
 }
