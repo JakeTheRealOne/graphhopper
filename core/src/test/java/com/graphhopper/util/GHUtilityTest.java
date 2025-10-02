@@ -18,6 +18,8 @@
 package com.graphhopper.util;
 
 import com.graphhopper.coll.GHIntLongHashMap;
+import com.graphhopper.storage.BaseGraph;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,5 +65,23 @@ public class GHUtilityTest {
 //        assertEquals(0, map2.get(1));
 //        assertEquals(1, map2.get(2));
 //        assertEquals(-1, map2.get(3));
+    }
+
+    @Test
+    public void testGetAdj() {
+        BaseGraph graph = new BaseGraph.Builder(4).create();
+        graph.edge(0, 3);
+        assertEquals(0, GHUtility.getAdjNode(graph, 0, 0));
+        assertEquals(3, GHUtility.getAdjNode(graph, 0, 3));
+    }
+
+    @Test
+    public void testGetEdge() {
+        BaseGraph graph = new BaseGraph.Builder(4).create();
+        graph.edge(0, 3).setDistance(0.67);
+        graph.edge(41, 42);
+        assertEquals(0, GHUtility.getEdge(graph, 0, 3).getBaseNode());
+        assertEquals(42, GHUtility.getEdge(graph, 42, 41).getBaseNode());
+        assertEquals(0.67, GHUtility.getEdge(graph, 0, 3).getDistance());
     }
 }
