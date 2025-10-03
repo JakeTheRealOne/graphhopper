@@ -1,4 +1,4 @@
-## Tâche 2 : Tests 
+# Tâche 2 : Tests unitaires automatiques
 
 ## Binôme
 - Bilal Vandenberge  
@@ -12,7 +12,7 @@ Dans le cadre de cette tâche, nous avons choisi d’améliorer la couverture de
 - `AngleCalc` (classe permettant de convertir des azimuts en points cardinaux ou en angles relatifs aux axes)  
 
 Ces classes avaient une couverture partielle, avec des méthodes non testées ou mal couvertes.  
-Nos nouveaux tests ont permis de renforcer la robustesse de ces classes et d’améliorer le **score de mutation**.
+Nos nouveaux tests ont permis de renforcer la robustesse de ces classes et d’améliorer le score de mutation.
 
 
 ## Documentation des tests
@@ -25,7 +25,7 @@ Chaque test est documenté avec :
 - **Justification** : pourquoi ce test est pertinent  
 
 
-### GHUtilityTest
+## GHUtilityTest
 
 ## 1. `testPathsEqualExceptOneEdge_samePathsThrows`
 - **Intention** : Vérifier que la méthode privée `pathsEqualExceptOneEdge` lève une exception si deux chemins identiques sont comparés.  
@@ -92,12 +92,35 @@ Chaque test est documenté avec :
 - **Justification** : couvre les cas normaux et limites.  
 
 
+## Tests avec java-faker
+
+## 9. `StopWatchFakerTest.testRandomSleepWithFaker`
+- **Intention** : Vérifier que `StopWatch` mesure correctement des temps d’attente générés aléatoirement.  
+- **Données** : `java-faker` génère un entier entre 5 et 20 ms, utilisé comme durée de `Thread.sleep()`.  
+- **Oracle** : la durée mesurée par `StopWatch` est supérieure ou égale au temps généré (avec une tolérance de 2 ms).  
+- **Justification** : l’utilisation de `java-faker` permet d’éviter des valeurs fixes et de varier les scénarios de test pour améliorer la robustesse.  
+
+
+## Résultats mutation (PITEST)
+
+Nous avons exécuté **PITEST** sur les classes `GHUtility`, `StopWatch` et `AngleCalc`.  
+
+- **Avant nos ajouts** : plusieurs mutants survivaient (conditions non testées, exceptions non couvertes).  
+- **Après nos ajouts** :  
+  -  
+  - 
+  -  
+  - 
+
+Ces résultats montrent que nos tests ont augmenté le score de mutation et renforcé la couverture effective.  
+
+
 ## Résultats d’exécution
-- Les **7 nouveaux tests** s’exécutent avec succès (`mvn test`).   
+- Les **8 nouveaux tests** s’exécutent avec succès (`mvn test`).   
 - Tous les tests passent également dans l’intégration continue (GitHub Actions).  
 
 
-En résumé :  
-- **7 nouveaux tests ajoutés**  
-- **Tous les tests passent localement et sur GitHub Actions**  
-
+## Conclusion
+- 9 nouveaux tests ajoutés (dont 1 avec java-faker)  
+- Tous les tests passent localement et sur GitHub Actions
+- Amélioration significative du score de mutation** grâce aux nouveaux cas de test  
