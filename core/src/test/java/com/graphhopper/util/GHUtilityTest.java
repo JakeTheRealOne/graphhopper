@@ -87,7 +87,7 @@ public class GHUtilityTest {
         assertEquals(0.67, GHUtility.getEdge(graph, 0, 3).getDistance());
     }
 
-        @Test
+    @Test
     public void testPathsEqualExceptOneEdge_samePathsThrows() throws Exception {
         var graph = new BaseGraph.Builder(10).create();
 

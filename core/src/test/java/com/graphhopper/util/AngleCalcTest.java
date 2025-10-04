@@ -150,7 +150,6 @@ public class AngleCalcTest {
         }
     }
 
-    // #### IFT3913 ####
     @Test
     public void testAzimuth2compassPoint() {
       assertEquals("N", AC.azimuth2compassPoint(22.0));
