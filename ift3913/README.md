@@ -109,20 +109,67 @@ Chaque test est documenté avec :
 - **Oracle** : la durée mesurée par `StopWatch` est supérieure ou égale au temps généré (avec une tolérance de 2 ms).  
 - **Justification** : l’utilisation de `java-faker` permet d’éviter des valeurs fixes et de varier les scénarios de test pour améliorer la robustesse.  
 
-
 ## Résultats mutation (PITEST)
 
-Nous avons exécuté **PITEST** sur les classes `GHUtility`, `StopWatch` et `AngleCalc`.  
+Nous avons exécuté **PITEST** sur les classes `GHUtility`, `StopWatch` et `AngleCalc`. Le plugin a été rajouté dans le pom.xml du module graphhopper.core (voir [ici](../core/pom.xml#L173)).
 
-- **Avant nos ajouts** : plusieurs mutants survivaient (conditions non testées, exceptions non couvertes).  
-- **Après nos ajouts** :  
-  -  
-  - 
-  -  
-  - 
+### Génération du rapport
 
-Ces résultats montrent que nos tests ont augmenté le score de mutation et renforcé la couverture effective.  
+Pour générer un rapport PIT dans core/target/pit-reports/com.graphhopper.util/index.html, executez la commande:
 
+```bash
+mvn test-compile org.pitest:pitest-maven:mutationCoverage
+```
+
+dans le dossier `core`.
+
+### Avant nos ajouts
+
+![img](./assets/pitest_before_tests.png)
+
+### Mutations tuées par nos ajouts
+
+#### StopWatch
+
+Dans la méthode StopWatch.toString, des mutations liées à la condition et la valeur de retour sont tuées par le test `StopWatchTest.testToStringWithName` car celui-ci vérifie le retour de cette méthode avec un oracle simple et précis:
+
+![img](./assets/stopwatch.tostring_pitest.png)
+
+Dans la méthode `StopWatch.getTimeString`, la mutation qui retourne un string vide au lieu de "0ns" et la mutation qui rend négatif la condition elapsedNanos < 1e3 sont tuées. Cependant, la mutation qui inverse l'inégalité de cette condition survit car l'intention du test `StopWatchTest.testGetTimeStringZero` n'est pas de vérifier cette condition particulierement mais surtout qu'un chronomètre (StopWatch) non-démarré reste bien à 0ns:
+
+![img](./assets/stopwatch.gettimestring_pitest.png)
+
+Le test `StopWatchTest.testGetMillisDoubleAfterSleep` permet de tuer les mutations qui retournent 0.0 pour `StopWatch.getMillisDouble` et qui retournent null pour `StopWatch.started`:
+
+![img](./assets/stopwatch.started_pitest.png)
+![img](./assets/stopwatch.getmillisdouble_pitest.png)
+
+#### GHUtility
+
+L'intention du test `GHUtilityTest.testPathsEqualExceptOneEdgeSamePathsThrows` est précisiement de s'assurer qu'une exception est bien lancée si les arguments sont incorrectes. C'est pour cela que la mutation qui inverse la condition de l'exception ne passe plus grâce à ce test:
+
+![img](./assets/ghutility.pathsequalexceptoneedge_pitest.png)
+
+Beaucoup de mutations apparaissent dans les méthodes `GHUtility.getEdge` et `GHUtility.getAdjNode` car malgré l'impression que celles-ci semblent simples elles sont relativement complexes. Les tests `GHUtiliyTest.testGetEdge` et `GHUtilityTest.testGetAdj` couvrent des mutations majeures sur les conditions dans les closes while et if ainsi que les valeurs de retour grâce à leurs oracles simple et efficace:
+
+![img](./assets/ghutility.getadjnode_pitest.png)
+![img](./assets/ghutility.getedge_pitest.png)
+
+#### AngleCalcTest
+
+Les mutations qui inverse les conditions des closes if, les mutations mathématiques et la mutation retournant un string vide au lieu de la valeur attendue dans `AngleCalc.azimuth2compassPoint` sont tuées par les 9 assertions du test `AngleCalcTest.testAzimuth2CompassPoint` visant chacune les 9 closes if:
+
+![img](./assets/anglecalc.azimuth2compasspoint_pitest.png)
+
+Finalement, des mutations mathématiques (changement des opérations), des mutations de valeur de retour et des conditions des closes if dans `AngleCalc.convertAzimuth2XAxisAngle` sont presque toutes tuées dans `AngleCalcTest.testConvertAzimuth2XAxisAngle` car les données de test ont été choisies spécialement pour couvrir plusieurs scénario de calcul dans cette méthode (test boite blanche):
+
+![img](./assets/anglecalc.convertazimuth2xaxisangle_pitest.png)
+
+### Après nos ajouts 
+
+![img](./assets/pitest_after_tests.png)
+
+Ces résultats montrent que nos tests ont augmenté le score de mutation et renforcé la couverture effective.
 
 ## Résultats d’exécution
 - Les **8 nouveaux tests** s’exécutent avec succès (`mvn test`).   
@@ -133,3 +180,9 @@ Ces résultats montrent que nos tests ont augmenté le score de mutation et renf
 - 9 nouveaux tests ajoutés (dont 1 avec java-faker)  
 - Tous les tests passent localement et sur GitHub Actions
 - Amélioration significative du score de mutation** grâce aux nouveaux cas de test  
+- Amélioration de la couverture du code:
+
+Avant:
+![img](./assets/jacoco_after_tests.png)
+Après:
+![img](./assets/jacoco_before_tests.png)

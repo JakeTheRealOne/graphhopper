@@ -8,6 +8,7 @@ class StopWatchTest {
 
     @Test
     void testToStringWithName() {
+        // Vérifie le format du retour de StopWatch.toString
         StopWatch sw = new StopWatch("customName");
         String result = sw.toString();
         assertTrue(result.contains("customName"));
@@ -16,6 +17,7 @@ class StopWatchTest {
 
     @Test
     void testGetTimeStringZero() {
+        // Un StopWatch non-démarré doit retourner 0 comme temps écoulé
         StopWatch sw = new StopWatch();
         assertEquals("0ns", sw.getTimeString());
     }
