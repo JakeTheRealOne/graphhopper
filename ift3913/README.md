@@ -27,13 +27,15 @@ Chaque test est documenté avec :
 
 ## GHUtilityTest
 
-## 1. `testPathsEqualExceptOneEdge_samePathsThrows`
+### 1. `testPathsEqualExceptOneEdgeSamePathsThrows` 
+[voir le test dans le fichier source](../core/src/test/java/com/graphhopper/util/GHUtilityTest.java#L91)
 - **Intention** : Vérifier que la méthode privée `pathsEqualExceptOneEdge` lève une exception si deux chemins identiques sont comparés.  
 - **Données** : deux listes de nœuds `{1, 2, 3}`.  
 - **Oracle** : `IllegalArgumentException`.  
 - **Justification** : cette situation est explicitement interdite par le code source ; la tester garantit qu’un bug ne masquera pas ce comportement.  
 
-## 2. `testGetAdj`
+### 2. `testGetAdj`
+[voir le test dans le fichier source](../core/src/test/java/com/graphhopper/util/GHUtilityTest.java#L73)
 - **Intention** : Vérifier que `getAdjNode` renvoie correctement le nœud adjacent d’une arête.  
 - **Données** : graphe de 4 nœuds avec arête `(0, 3)`.  
 - **Oracle** :  
@@ -41,7 +43,8 @@ Chaque test est documenté avec :
   - `getAdjNode(graph, 0, 3)` → `3`.  
 - **Justification** : garantit le bon fonctionnement de la méthode pour un graphe simple.  
 
-## 3. `testGetEdge`
+### 3. `testGetEdge`
+[voir le test dans le fichier source](../core/src/test/java/com/graphhopper/util/GHUtilityTest.java#L81)
 - **Intention** : Vérifier que `getEdge` récupère correctement une arête et ses informations associées.  
 - **Données** : graphe avec deux arêtes : `(0, 3)` de distance `0.67`, et `(41, 42)`.  
 - **Oracle** :  
@@ -53,19 +56,22 @@ Chaque test est documenté avec :
 
 ## StopWatchTest
 
-## 4. `testToStringWithName`
+### 4. `testToStringWithName`
+[voir le test dans le fichier source](../core/src/test/java/com/graphhopper/util/StopWatchTest.java#L10)
 - **Intention** : Vérifier que `toString()` inclut bien le nom donné et le temps écoulé.  
 - **Données** : `StopWatch("customName")`.  
 - **Oracle** : chaîne contient `"customName"` et `"time:"`.  
 - **Justification** : assure la lisibilité des mesures.  
 
-## 5. `testGetTimeStringZero`
+### 5. `testGetTimeStringZero`
+[voir le test dans le fichier source](../core/src/test/java/com/graphhopper/util/StopWatchTest.java#L18)
 - **Intention** : Vérifier la valeur par défaut du chronomètre non démarré.  
 - **Données** : `new StopWatch()` sans `start()`.  
 - **Oracle** : `"0ns"`.  
 - **Justification** : confirme la robustesse dans un scénario de non-utilisation.  
 
-## 6. `testGetMillisDoubleAfterSleep`
+### 6. `testGetMillisDoubleAfterSleep`
+[voir le test dans le fichier source](../core/src/test/java/com/graphhopper/util/StopWatchTest.java#L24)
 - **Intention** : Vérifier que la mesure du temps est correcte après une pause.  
 - **Données** : `StopWatch.started()`, `Thread.sleep(10)`, puis `stop()`.  
 - **Oracle** : valeur ≥ `9 ms`.  
@@ -74,13 +80,15 @@ Chaque test est documenté avec :
 
 ## AngleCalcTest
 
-## 7. `testAzimuth2compassPoint`
+### 7. `testAzimuth2compassPoint`
+[voir le test dans le fichier source](../core/src/test/java/com/graphhopper/util/AngleCalcTest.java#L154)
 - **Intention** : Vérifier que `azimuth2compassPoint` convertit correctement un azimut en points cardinaux.  
 - **Données** : `22.0°, 67.0°, 112.0°, 157.0°, 202.0°, 247.0°, 292.0°, 337.0°`.  
 - **Oracle** : `"N"`, `"NE"`, `"E"`, `"SE"`, `"S"`, `"SW"`, `"W"`, `"NW"`.  
 - **Justification** : couvre les 8 points cardinaux principaux.  
 
-## 8. `testConvertAzimuth2xaxisAngle`
+### 8. `testConvertAzimuth2xaxisAngle`
+[voir le test dans le fichier source](../core/src/test/java/com/graphhopper/util/AngleCalcTest.java#167)
 - **Intention** : Vérifier que `convertAzimuth2xaxisAngle` convertit correctement un azimut en angle relatif à l’axe X et gère les valeurs invalides.  
 - **Données** :  
   - `42.0° → 0.0775804 rad`.  
@@ -94,7 +102,8 @@ Chaque test est documenté avec :
 
 ## Tests avec java-faker
 
-## 9. `StopWatchFakerTest.testRandomSleepWithFaker`
+### 9. `testRandomSleepWithFaker`
+[voir le test dans le fichier source](../core/src/test/java/com/graphhopper/util/StopWatchFakerTest.java#L11)
 - **Intention** : Vérifier que `StopWatch` mesure correctement des temps d’attente générés aléatoirement.  
 - **Données** : `java-faker` génère un entier entre 5 et 20 ms, utilisé comme durée de `Thread.sleep()`.  
 - **Oracle** : la durée mesurée par `StopWatch` est supérieure ou égale au temps généré (avec une tolérance de 2 ms).  

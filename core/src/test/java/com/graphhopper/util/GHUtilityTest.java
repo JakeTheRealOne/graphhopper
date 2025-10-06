@@ -88,7 +88,7 @@ public class GHUtilityTest {
     }
 
     @Test
-    public void testPathsEqualExceptOneEdge_samePathsThrows() throws Exception {
+    public void testPathsEqualExceptOneEdgeSamePathsThrows() throws Exception {
         var graph = new BaseGraph.Builder(10).create();
 
         var path1 = new com.carrotsearch.hppc.IntArrayList();
