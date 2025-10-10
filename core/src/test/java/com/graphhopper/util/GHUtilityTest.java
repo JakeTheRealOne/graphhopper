@@ -71,6 +71,7 @@ public class GHUtilityTest {
 
     @Test
     public void testGetAdj() {
+        // Un noeud est adjacent à un autre si une arête existe entre les deux
         BaseGraph graph = new BaseGraph.Builder(4).create();
         graph.edge(0, 3);
         assertEquals(0, GHUtility.getAdjNode(graph, 0, 0));
@@ -79,6 +80,7 @@ public class GHUtilityTest {
 
     @Test
     public void testGetEdge() {
+        // Vérifie que les arêtes sont initialisées correctement et sont détéctées par la méthode
         BaseGraph graph = new BaseGraph.Builder(4).create();
         graph.edge(0, 3).setDistance(0.67);
         graph.edge(41, 42);

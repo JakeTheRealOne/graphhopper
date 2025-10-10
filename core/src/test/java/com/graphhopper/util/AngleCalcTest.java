@@ -152,6 +152,7 @@ public class AngleCalcTest {
 
     @Test
     public void testAzimuth2compassPoint() {
+      // Vérifie que les 9 cas sont couverts
       assertEquals("N", AC.azimuth2compassPoint(22.0));
       assertEquals("NE", AC.azimuth2compassPoint(67.0));
       assertEquals("E", AC.azimuth2compassPoint(112.0));
@@ -165,6 +166,8 @@ public class AngleCalcTest {
 
     @Test
     public void testConvertAzimuth2xaxisAngle() {
+      // Vérifie que la méthode ne fait pas d'erreurs mathématiques
+      // (précision 1e-4)
       assertEquals(0.8377580409572781, AC.convertAzimuth2xaxisAngle(42.0), 0.0001);
       assertEquals(1.5438592509381714, AC.convertAzimuth2xaxisAngle(1.5433807590140929), 0.0001);
       assertEquals(-3.12413936106985, AC.convertAzimuth2xaxisAngle(360-91), 0.0001);

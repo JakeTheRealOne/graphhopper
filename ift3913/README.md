@@ -115,7 +115,7 @@ Nous avons exécuté **PITEST** sur les classes `GHUtility`, `StopWatch` et `Ang
 
 ### Génération du rapport
 
-Pour générer un rapport PIT dans core/target/pit-reports/com.graphhopper.util/index.html, executez la commande:
+Pour générer un rapport PIT dans `core/target/pit-reports/com.graphhopper.util/index.html`, éxecutez la commande:
 
 ```bash
 mvn test-compile org.pitest:pitest-maven:mutationCoverage
@@ -150,7 +150,7 @@ L'intention du test `GHUtilityTest.testPathsEqualExceptOneEdgeSamePathsThrows` e
 
 ![img](./assets/ghutility.pathsequalexceptoneedge_pitest.png)
 
-Beaucoup de mutations apparaissent dans les méthodes `GHUtility.getEdge` et `GHUtility.getAdjNode` car malgré l'impression que celles-ci semblent simples elles sont relativement complexes. Les tests `GHUtiliyTest.testGetEdge` et `GHUtilityTest.testGetAdj` couvrent des mutations majeures sur les conditions dans les closes while et if ainsi que les valeurs de retour grâce à leurs oracles simple et efficace:
+Beaucoup de mutations apparaissent dans les méthodes `GHUtility.getEdge` et `GHUtility.getAdjNode` car malgré l'impression que celles-ci semblent simples, elles sont relativement complexes. Les tests `GHUtiliyTest.testGetEdge` et `GHUtilityTest.testGetAdj` couvrent des mutations majeures sur les conditions dans les closes while et if ainsi que les valeurs de retour grâce à leurs oracles simple et efficace:
 
 ![img](./assets/ghutility.getadjnode_pitest.png)
 ![img](./assets/ghutility.getedge_pitest.png)
@@ -179,7 +179,7 @@ Ces résultats montrent que nos tests ont augmenté le score de mutation et renf
 ## Conclusion
 - 9 nouveaux tests ajoutés (dont 1 avec java-faker)  
 - Tous les tests passent localement et sur GitHub Actions
-- Amélioration significative du score de mutation** grâce aux nouveaux cas de test  
+- Amélioration significative du score de mutation grâce aux nouveaux cas de test  
 - Amélioration de la couverture du code:
 
 Avant:
