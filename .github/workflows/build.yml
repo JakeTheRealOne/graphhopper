@@ -51,11 +51,10 @@ jobs:
       - name: Run mutation tests and compute score (Java 24 only)
         if: matrix.java-version == 24
         run: |
-          # À ADAPTER avec la vraie commande de tests de mutation
-          # Exemple (si vous utilisez PIT) :
-          # mvn -B org.pitest:pitest-maven:mutationCoverage
-
-          # Pour l'instant: valeur fictive, juste pour tester le workflow
+          # Pour la tâche 3, on simule un score de mutation fixe.
+          # On pourrait remplacer cette ligne par l'appel à PIT
+          # (par exemple: mvn -B org.pitest:pitest-maven:mutationCoverage)
+          # et extraire le score réel à la place.
           echo "80.0" > mutation_score.txt
 
       # Comparaison avec le score baseline
