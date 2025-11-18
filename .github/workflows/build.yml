@@ -84,9 +84,9 @@ jobs:
             echo "Mutation score OK: $NEW_SCORE >= $BASELINE_SCORE"
           fi
 
-          # On ne met PAS à jour mutation_baseline.txt ici.
-          # Vous le mettrez à jour manuellement dans le repo
-          # quand vous serez satisfaits du nouveau score.
+          # La baseline n'est pas mise à jour automatiquement ici.
+          # On la modifie manuellement dans mutation_baseline.txt si on accepte un nouveau score.
+
 
   # Rickroll si le job build échoue
   rickroll:
