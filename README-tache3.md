@@ -73,11 +73,8 @@ L’important pour la tâche 3 est la **logique de comparaison**, pas encore le 
 # 3.3 Fichier `mutation_baseline.txt`
 
 On a ajouté à la racine du projet un fichier texte : mutation_baseline.txt
-
 Ce fichier contient un seul nombre, par exemple : 80.0
-
 Ce nombre est la baseline, à partir de ce score, on ne veut plus jamais descendre en dessous.
-
 Si un jour on améliore le score de mutation, on pourra mettre une nouvelle valeur dans ce fichier et la commit.
 
 # 3.4 Comparaison : nouveau score vs baseline
@@ -147,9 +144,7 @@ Pour vérifier que tout fonctionne comme prévu, on a fait **deux tests**.
 # 5.1 Test 1 – Succès (score OK)
 
 1. On met dans mutation_baseline.txt : 0.0 puis 80.0.
-
 2. Le step de mutation écrit 80.0 dans mutation_score.txt.
-
 3. Dans les logs GitHub Actions, on voit :
 
 
@@ -163,9 +158,7 @@ Mutation score OK: 80.0 >= 0.0
 # 5.2 Test 2 – Échec (score plus bas que la baseline)
 
 1. On augmente la baseline dans mutation_baseline.txt : 90.0
-
 2. Le step de mutation produit toujours 80.0 dans mutation_score.txt.
-
 3. Dans les logs, on voit :
 
 

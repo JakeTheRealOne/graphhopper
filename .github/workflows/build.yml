@@ -51,7 +51,7 @@ jobs:
       - name: Run mutation tests and compute score (Java 24 only)
         if: matrix.java-version == 24
         run: |
-          # ⚠️ À ADAPTER avec la vraie commande de tests de mutation
+          # À ADAPTER avec la vraie commande de tests de mutation
           # Exemple (si vous utilisez PIT) :
           # mvn -B org.pitest:pitest-maven:mutationCoverage
 
@@ -98,5 +98,5 @@ jobs:
       - name: Never gonna give you up
         run: |
           echo "Les tests ou le score de mutation ont échoué..."
-          echo "Never gonna give you up, never gonna let you down 🎵"
+          echo "Never gonna give you up, never gonna let you down"
           echo "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
