@@ -1,5 +1,9 @@
 # Tâche 3 – Partie GitHub Actions (GA)
 
+# Binôme
+- Bilal Vandenberge  
+- Ilyas Ally Musaphur 
+
 # 1. But de notre modification
 
 Pour la tâche 3, on a modifié le workflow GitHub Actions de notre fork de GraphHopper pour :
