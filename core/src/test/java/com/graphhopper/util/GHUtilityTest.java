@@ -79,10 +79,10 @@ public class GHUtilityTest {
         // Mock pour simuler la classe BaseGraph et l'interface EdgeIteratorState
         BaseGraph graph = mock(BaseGraph.class);
         EdgeIteratorState it = mock(EdgeIteratorState.class);
-        when(it.getAdjNode()).thenReturn(0);
+        when(it.getAdjNode()).thenReturn(1);
         when(graph.getEdgeIteratorState(0, 0)).thenReturn(it);
 
-        assertEquals(0, GHUtility.getAdjNode(graph, 0, 0));
+        assertEquals(1, GHUtility.getAdjNode(graph, 0, 0));
     }
 
     @Test

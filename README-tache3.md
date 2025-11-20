@@ -23,6 +23,11 @@ Fichiers liés à la partie Github Actions :
 - `.github/workflows/build.yml`  
 - `mutation_baseline.txt`
 
+Fichiers liés aux mocks :
+
+- `pom.xml`
+- `core/src/test/java/com/graphhopper/util/GHUtilityTest.java`
+
 # 3. Comment fonctionne notre workflow
 
 # 3.1 Job `build` (compilation + tests)
@@ -175,5 +180,17 @@ Ces deux scénarios montrent que :
 - la GA échoue quand le score baisse, comme demandé dans les critères ;
 - l’élément d’humour est bien déclenché en cas d’erreur.
 
+# 6. Mocks
 
+Nous avons utilisé la librairie [mockito](https://site.mockito.org/) pour mocker deux classes:
 
+- Pour la classe BaseGraph (voir [ici](./core/src/main/java/com/graphhopper/storage/BaseGraph.java)).
+- Pour l'interface EdgeIteratorState (voir [ici](./core/src/main/java/com/graphhopper/util/EdgeIteratorState.java))
+
+Pour tester la méthodes getAdjNode de GHUtility, nous avons besoin d'un graphe (instance de la classe BaseGraph) qui supporte l'appel à la méthode getEdgeIteratorState retournant une instance de l'interface EdgeIteratorState (test boite blanche). Au lieu de créer un graphe (qui peut être couteux en mémoire et en temps), nous mockons celle-ci telle que la méthode getEdgeIteratorState retourne un mock de l'interface EdgeIteratorState retournant bien le résultat attendu.
+
+## 6.1 Tests impactés
+
+[voir le mock dans le fichier de test](./core/src/test/java/com/graphhopper/util/GHUtilityTest.java#76)
+
+GHUtilityTest.testGetAdj vérifie l'implémentation de la méthode GHUtility.getAdjNode(Graph, int, int). Le premier paramètre que nous lui passons dans le test est une simulation avec un mock au lieu d'une instance de BaseGraph.
