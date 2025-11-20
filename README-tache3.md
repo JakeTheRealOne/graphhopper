@@ -103,10 +103,10 @@ Code :
     is_less=$(awk -v new="$NEW_SCORE" -v base="$BASELINE_SCORE" 'BEGIN { if (new < base) print "yes"; else print "no"; }')
 
     if [ "$is_less" = "yes" ]; then
-      echo "❌ Mutation score decreased: $NEW_SCORE < $BASELINE_SCORE"
+      echo "Mutation score decreased: $NEW_SCORE < $BASELINE_SCORE"
       exit 1        # => le job build échoue
     else:
-      echo "✅ Mutation score OK: $NEW_SCORE >= $BASELINE_SCORE"
+      echo "Mutation score OK: $NEW_SCORE >= $BASELINE_SCORE"
     fi
 
 
