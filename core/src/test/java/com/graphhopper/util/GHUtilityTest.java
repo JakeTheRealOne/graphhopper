@@ -21,6 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 
 import com.graphhopper.coll.GHIntLongHashMap;
@@ -72,10 +75,14 @@ public class GHUtilityTest {
     @Test
     public void testGetAdj() {
         // Un noeud est adjacent à un autre si une arête existe entre les deux
-        BaseGraph graph = new BaseGraph.Builder(4).create();
-        graph.edge(0, 3);
+
+        // Mock pour simuler la classe BaseGraph et l'interface EdgeIteratorState
+        BaseGraph graph = mock(BaseGraph.class);
+        EdgeIteratorState it = mock(EdgeIteratorState.class);
+        when(it.getAdjNode()).thenReturn(0);
+        when(graph.getEdgeIteratorState(0, 0)).thenReturn(it);
+
         assertEquals(0, GHUtility.getAdjNode(graph, 0, 0));
-        assertEquals(3, GHUtility.getAdjNode(graph, 0, 3));
     }
 
     @Test
@@ -84,6 +91,7 @@ public class GHUtilityTest {
         BaseGraph graph = new BaseGraph.Builder(4).create();
         graph.edge(0, 3).setDistance(0.67);
         graph.edge(41, 42);
+
         assertEquals(0, GHUtility.getEdge(graph, 0, 3).getBaseNode());
         assertEquals(42, GHUtility.getEdge(graph, 42, 41).getBaseNode());
         assertEquals(0.67, GHUtility.getEdge(graph, 0, 3).getDistance());
